@@ -25,13 +25,6 @@ def remove_chastisements(schoolkid):
 
 
 def create_commendation(schoolkid, subject_title):
-    lessons = Lesson.objects.filter(
-            year_of_study=6, 
-            group_letter='А', 
-            subject__title=subject_title,
-        ).order_by('?')
-    print(lessons)
-    lesson = lessons.first()
     commendation_texts = [
         'Молодец!'
         'Отлично!',
@@ -64,13 +57,22 @@ def create_commendation(schoolkid, subject_title):
         'Ты многое сделал, я это вижу!',
         'Теперь у тебя точно все получится!',
     ]
-    Commendation.objects.create(
-            text=random.choice(commendation_texts),
-            created=lesson.date,
-            schoolkid=schoolkid,
-            subject=lesson.subject,
-            teacher=lesson.teacher,
-        )
+    lessons = Lesson.objects.filter(
+            year_of_study=6, 
+            group_letter='А', 
+            subject__title=subject_title,
+        ).order_by('?')
+    if not lessons:
+        print('Предмет не найден, проверьте правильность написания и повторите запрос')
+    else:
+        lesson = lessons.first()
+        Commendation.objects.create(
+                text=random.choice(commendation_texts),
+                created=lesson.date,
+                schoolkid=schoolkid,
+                subject=lesson.subject,
+                teacher=lesson.teacher,
+            )
 
 
 def find_schoolkid(name):
