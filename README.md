@@ -12,20 +12,38 @@
 - Cайт будет доступен по адресу: [http://0.0.0.0:8000/](http://0.0.0.0:8000/)
 - Скачайте код из [репозитория](https://github.com/ArkJzzz/db_hack.git)
 - Скачайте [архив с базой данных](https://dvmn.org/filer/canonical/1562234129/166/)
-- Поместите файл со скриптами и файл базы данных рядом с manage.py
-- Запустите Django shell `python3 manage.py shell`
-- Подключите скрипт `import scripts`
+- Поместите файл со скриптами и файл базы данных рядом с `manage.py`
+- Запустите Django shell
+```bash
+python3 manage.py shell
+```
+- Подключите скрипт
+```python
+import scripts
+```
 
 
 ## Использование
 
-- Получить учетную запись необходимого ученика `schoolkid = scripts.find_schoolkid('<Фамилия Имя>')`
+- Получить учетную запись необходимого ученика 
+```python
+schoolkid = scripts.find_schoolkid('<Фамилия Имя>')
+```
 
-- Исправить плохие оценки: `scripts.fix_marks(schoolkid)`
+- Исправить плохие оценки:
+```python
+scripts.fix_marks(schoolkid)
+```
 
-- Удалить все замечания ученика: `scripts.remove_chastisements(schoolkid)`
+- Удалить все замечания ученика:
+```python
+scripts.remove_chastisements(schoolkid)
+```
 
-- Добавить похвалу ученику: `scripts.create_commendation(schoolkid, '<Предмет>')`
+- Добавить похвалу ученику:
+```python
+scripts.create_commendation(schoolkid, '<Предмет>')
+```
 
 
 ## Цели проекта
