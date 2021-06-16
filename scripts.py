@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 import random
 
 from django.core.exceptions import MultipleObjectsReturned
@@ -63,24 +61,24 @@ def create_commendation(schoolkid, subject_title):
             subject__title=subject_title,
         ).order_by('?')
     if not lessons:
-        print('Предмет не найден, проверьте правильность написания и повторите запрос')
-    else:
-        lesson = lessons.first()
-        Commendation.objects.create(
-                text=random.choice(commendation_texts),
-                created=lesson.date,
-                schoolkid=schoolkid,
-                subject=lesson.subject,
-                teacher=lesson.teacher,
-            )
+        return print('Предмет не найден, проверьте правильность написания и повторите запрос')
+    
+    lesson = lessons.first()
+    Commendation.objects.create(
+            text=random.choice(commendation_texts),
+            created=lesson.date,
+            schoolkid=schoolkid,
+            subject=lesson.subject,
+            teacher=lesson.teacher,
+        )
 
 
 def find_schoolkid(name):
     try: 
         return Schoolkid.objects.get(full_name__contains=name)
-    except MultipleObjectsReturned:
+    except Schoolkid.MultipleObjectsReturned:
         print('Найдено несколько учеников, уточните запрос')
-    except ObjectDoesNotExist:
+    except Schoolkid.DoesNotExist:
         print('Ученика с таким именем не найдено, уточните запрос')
 
 
